@@ -1,0 +1,28 @@
+version: '2'
+services:
+  mongodb:
+    image: mongo:4.4
+    container_name: mongo-db
+    restart: always
+    command: mongod --logpath /dev/null --oplogSize 128 --quiet
+    networks:
+      - prueba-tier
+    ports:
+    - 127.0.01:27017:27017
+    volumes:
+      # - ./mongo-entrypoint/:/docker-entrypoint-initdb.d/
+      - mongo-db:/data/db
+      - mongo-db-dump:/dump
+volumes:
+  mongo-db:
+    driver: local
+  mongo-db-dump:
+    driver: local
+
+networks:
+  prueba-tier:
+    driver: bridge
+
+
+
+
